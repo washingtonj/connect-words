@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'
 import { Wordcard } from '@/components/Wordcard'
 
 export default function Home() {
@@ -11,7 +12,9 @@ export default function Home() {
   const [validating, setValidating] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const combinationsColors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500', 'bg-pink-500']
+  const router = useRouter()
+
+  const combinationsColors = ['bg-red-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400', 'bg-purple-400', 'bg-pink-400']
 
   const validateCombination = useCallback(async () => {
     setValidating(true)
@@ -82,11 +85,21 @@ export default function Home() {
     }
   }, [selectedWords, validateCombination])
 
+
+  useEffect(() => {
+    if (combinations && Object.keys(combinations).length == 6) {
+      const base64 = btoa(JSON.stringify({ attempts, combinations: Object.keys(combinations) }))
+      router.push(`/result?v=${base64}`, { scroll: true })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [combinations])
+
+
   useEffect(() => { loadWords() }, [])
 
 
   return (
-    <main className="px-4 flex flex-col items-center mt-4 mb-8 lg:mt-24">
+    <main className="flex flex-col items-center mt-4 mb-8 px-2 lg:mt-24">
       {loading && (
         <div className="flex items-center justify-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
