@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { Wordcard } from '@/components/Wordcard'
 
 export default function Home() {
   const [words, setWords] = useState<string[]>([])
@@ -10,6 +11,7 @@ export default function Home() {
   const [validating, setValidating] = useState(false)
   const [loading, setLoading] = useState(true)
 
+  const combinationsColors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500', 'bg-pink-500']
 
   const validateCombination = useCallback(async () => {
     setValidating(true)
@@ -63,6 +65,15 @@ export default function Home() {
     }
   }
 
+  function findColorOfSelectedWord(word: string) {
+    if (!combinations) return
+
+    const topicsByCombination = Object.values(combinations)
+    const selectedWordIndex = topicsByCombination.findIndex((topic) => topic.includes(word))
+
+    return combinationsColors[selectedWordIndex]
+  }
+
 
   useEffect(() => {
     if (selectedWords.length == 5) {
@@ -75,9 +86,7 @@ export default function Home() {
 
 
   return (
-    <main className="px-4 flex flex-col items-center">
-      <h1 className="font-bold text-lg py-20 uppercase">Brennas Connect</h1>
-
+    <main className="px-4 flex flex-col items-center mt-24">
       {loading && (
         <div className="flex items-center justify-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
@@ -93,21 +102,21 @@ export default function Home() {
 
           <div className={`grid grid-cols-3 lg:grid-cols-6 gap-1 ${validating ? 'pointer-events-none' : ''}`}>
             {words.map((word) => (
-              <div
+              <Wordcard
                 key={word}
-                className={`transition-colors px-4 text-center h-20 text-sm flex items-center justify-center break-words border rounded-md cursor-pointer ${selectedWords.includes(word) ? "bg-black text-white" : "bg-gray-100 text-gray-700"}`}
-                onClick={() => handleSelect(word)}
-              >
-                {word}
-              </div>
+                word={word}
+                onClick={handleSelect}
+                selected={selectedWords.includes(word)}
+                bgColor={findColorOfSelectedWord(word)}
+              />
             ))}
           </div>
 
           {combinations && (
             <ul className="flex flex-col">
-              {Object.keys(combinations).map(key => (
+              {Object.keys(combinations).map((key, index) => (
                 <li key={key} className="flex items-center gap-2 text-xs">
-                  <div className="w-2 h-2 bg-red-200 rounded-full" />
+                  <div className={`w-2 h-2 rounded-full ${combinationsColors[index]}`} />
                   <p className="capitalize">{key}</p>
                 </li>
               ))}
