@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from 'next/navigation'
 import { Wordcard } from '@/components/Wordcard'
 
@@ -13,6 +13,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
+
+  const startDate = useMemo(() => new Date(), [])
 
   const combinationsColors = ['bg-red-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400', 'bg-purple-400', 'bg-pink-400']
 
@@ -77,6 +79,14 @@ export default function Home() {
     return combinationsColors[selectedWordIndex]
   }
 
+  function calculateTimeDifference() {
+    const diffInMilliseconds = new Date().getTime() - startDate.getTime();
+    const diffInMinutes = Math.floor(diffInMilliseconds / 60000);
+    const diffInSeconds = Math.floor((diffInMilliseconds % 60000) / 1000);
+
+    return `${diffInMinutes}m ${diffInSeconds}s`;
+  }
+
 
   useEffect(() => {
     if (selectedWords.length == 5) {
@@ -88,10 +98,14 @@ export default function Home() {
 
   useEffect(() => {
     if (combinations && Object.keys(combinations).length == 6) {
-      const base64 = btoa(JSON.stringify({ attempts, combinations: Object.keys(combinations) }))
+      const base64 = btoa(JSON.stringify({
+        attempts,
+        combinations: Object.keys(combinations),
+        time: calculateTimeDifference()
+      }))
       router.push(`/result?v=${base64}`, { scroll: true })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [combinations])
 
 
