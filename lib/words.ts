@@ -20,7 +20,17 @@ export const WORDS_DB = {
     "eletrodomésticos": ["Geladeira", "Fogão", "Máquina de lavar", "Liquidificador", "Micro-ondas"],
     "planetário": ["Mercúrio", "Vênus", "Terra", "Marte", "Júpiter"],
     "instrumentos de escrita": ["Caneta", "Lápis", "Canetinha", "Marca-texto", "Giz"],
-    "supermercado": ["Arroz", "Feijão", "Macarrão", "Azeite", "Vinagre"]
+    "supermercado": ["Arroz", "Feijão", "Macarrão", "Azeite", "Vinagre"],
+    "objetos de escritório": ["Caneta", "Papel", "Grampeador", "Lápis", "Clipes"],
+    "filmes de comédia": ["Superbad", "Se Beber, Não Case", "Escola de Rock", "Debi & Lóide", "As Branquelas"],
+    "músicas pop": ["Shape of You", "Despacito", "Uptown Funk", "Blinding Lights", "Dynamite"],
+    "itens de higiene pessoal": ["Escova de dentes", "Sabonete", "Xampu", "Desodorante", "Toalha"],
+    "raças de cachorros": ["Labrador Retriever", "Bulldog", "Poodle", "Beagle", "Dálmata"],
+    "esportes de inverno": ["Esqui alpino", "Snowboard", "Bobsleigh", "Patinagem artística", "Hóquei no gelo"],
+    "peças de roupa": ["Camiseta", "Calça jeans", "Vestido", "Jaqueta", "Sapatos"],
+    "séries de televisão": ["Friends", "Stranger Things", "Breaking Bad", "Game of Thrones", "The Mandalorian"],
+    "pratos internacionais": ["Sushi", "Paella", "Pad Thai", "Moussaka", "Tacos"],
+    "músicas clássicas": ["Canon in D", "Für Elise", "Ave Maria", "Sinfonia do Novo Mundo", "Réquiem"]
   },
   "medio": {
     "ferramentas": ["Martelo", "Chave de fenda", "Serra elétrica", "Furadeira", "Alicate"],
@@ -42,7 +52,16 @@ export const WORDS_DB = {
     "movimentos sociais": ["Feminismo", "Direitos civis", "Movimento LGBTQ+", "Abolicionismo", "Ecologismo"],
     "estilos arquitetônicos": ["Gótico", "Barroco", "Art Nouveau", "Neoclássico", "Modernismo"],
     "compositores contemporâneos": ["Hans Zimmer", "John Williams", "Ennio Morricone", "Yann Tiersen", "Hans Zimmer"],
-    "teorias científicas": ["Teoria da Relatividade", "Big Bang", "Evolução", "Física Quântica", "Teoria do Caos"]
+    "teorias científicas": ["Teoria da Relatividade", "Big Bang", "Evolução", "Física Quântica", "Teoria do Caos"],
+    "estilos de arte": ["Realismo", "Impressionismo", "Abstracionismo", "Cubismo", "Surrealismo"],
+    "compositores românticos": ["Chopin", "Schubert", "Tchaikovsky", "Verdi", "Liszt"],
+    "movimentos literários": ["Romantismo", "Realismo", "Modernismo", "Naturalismo", "Simbolismo"],
+    "jogos de tabuleiro": ["Xadrez", "Dama", "War", "Dominó", "Detetive"],
+    "gêneros cinematográficos": ["Suspense", "Aventura", "Fantasia", "Romance", "Mistério"],
+    "teorias de aprendizagem": ["Behaviorismo", "Construtivismo", "Humanismo", "Cognitivismo", "Conectivismo"],
+    "movimentos feministas": ["Sufrágio feminino", "Feminismo radical", "Feminismo liberal", "Feminismo socialista", "Feminismo interseccional"],
+    "filósofos contemporâneos": ["Slavoj Žižek", "Judith Butler", "Noam Chomsky", "Martha Nussbaum", "Peter Singer"],
+    "conflitos históricos": ["Segunda Guerra Mundial", "Guerra Fria", "Guerra do Vietnã", "Revolução Russa", "Guerra Civil Americana"]
   },
   "dificil": {
     "termos médicos": ["Eletroencefalograma", "Anticonstitucionalidade", "Otorrinolaringologista", "Desoxirribonucleico", "Imunofluorescência"],
@@ -64,7 +83,17 @@ export const WORDS_DB = {
     "cálculos matemáticos avançados": ["Integral de Lebesgue", "Transformada de Fourier", "Derivada direcional", "Teorema de Stokes", "Equações diferenciais parciais"],
     "termos de biologia molecular": ["Epigenética", "Transcrição reversa", "Splicing alternativo", "Sequenciamento de nova geração", "Reação em cadeia da polimerase"],
     "conceitos de psicologia profunda": ["Inconsciente coletivo", "Arquétipos", "Complexo de Édipo", "Mecanismos de defesa", "Teoria da Sombra"],
-    "termos de teoria da música avançada": ["Polifonia", "Cromatismo", "Modulação", "Tessitura", "Contraponto"]
+    "termos de teoria da música avançada": ["Polifonia", "Cromatismo", "Modulação", "Tessitura", "Contraponto"],
+    "esculturas famosas": ["David de Michelangelo", "Pietà de Michelangelo", "O Pensador de Rodin", "Vênus de Milo", "Discóbolo de Míron"],
+    "guerras antigas": ["Guerras Médicas", "Guerra do Peloponeso", "Guerras Púnicas", "Guerras Dacias", "Guerras Servis"],
+    "teorias de linguística": ["Sociolinguística", "Fonologia", "Morfologia", "Sintaxe", "Semântica"],
+    "estilos de música erudita": ["Barroco", "Clássico", "Romântico", "Impressionista", "Contemporâneo"],
+    "revoluções políticas": ["Revolução Francesa", "Revolução Russa", "Revolução Americana", "Revolução Cubana", "Revolução Chinesa"],
+    "escolas filosóficas": ["Estoicismo", "Epicurismo", "Ceticismo", "Helenismo", "Cinismo"],
+    "dinastias antigas": ["Dinastia Han", "Dinastia Zhou", "Dinastia Qin", "Dinastia Tang", "Dinastia Ming"],
+    "grandes descobertas científicas": ["Teoria da Relatividade", "Lei da Gravitação Universal", "Eletromagnetismo", "Teoria da Evolução", "Teoria da Seleção Natural"],
+    "teorias sociológicas": ["Funcionalismo", "Conflito", "Interação simbólica", "Estruturalismo", "Pós-modernismo"],
+    "epopeias clássicas": ["Ilíada", "Odisseia", "Eneida", "Mahabharata", "Ramayana"]
   },
   "muito_dificil": {
     "complicações médicas raras": ["Encefalomielite", "Mielodisplasia", "Esclerose sistêmica", "Neurossífilis", "Poliomielite"],
@@ -86,6 +115,16 @@ export const WORDS_DB = {
     "teorias de filosofia política complexas": ["Utilitarismo", "Contratualismo", "Hedonismo", "Existencialismo", "Anarquismo ontológico"],
     "movimentos artísticos experimentais": ["Arte conceitual", "Arte minimalista", "Arte performática", "Arte cinética", "Arte cibernética"],
     "termos de biotecnologia avançada": ["Edição de genoma", "Clonagem terapêutica", "Biorreator", "Biotecnologia vegetal", "Terapia gênica"],
-    "conceitos de filosofia da mente complexos": ["Dualismo interativo", "Funcionalismo", "Materialismo eliminativo", "Epifenomenalismo", "Neutral monism"]
+    "conceitos de filosofia da mente complexos": ["Dualismo interativo", "Funcionalismo", "Materialismo eliminativo", "Epifenomenalismo", "Neutral monism"],
+    "crises econômicas históricas": ["Grande Depressão", "Crise do Petróleo", "Crise de 1929", "Crise financeira de 2008", "Crise do subprime"],
+    "desastres naturais": ["Terremoto de Lisboa", "Erupção do Monte Vesúvio", "Tsunami no Oceano Índico", "Inundação do rio Amarelo", "Furacão Katrina"],
+    "teorias quânticas": ["Entrelaçamento quântico", "Superposição quântica", "Emaranhamento quântico", "Túnel quântico", "Teorema de Bell"],
+    "livros filosóficos complexos": ["Ser e Tempo", "O Ser e o Nada", "Fenomenologia do Espírito", "Investigações Lógicas", "A Vontade de Saber"],
+    "descobertas astronômicas importantes": ["Leis de Kepler", "Lei da Gravitação Universal", "Descoberta dos anéis de Saturno", "Descoberta dos satélites de Júpiter", "Descoberta dos exoplanetas"],
+    "marcos de arquitetura moderna": ["Sídney Opera House", "Guggenheim Museum Bilbao", "Torre Eiffel", "Empire State Building", "Casa da Ópera de Oslo"],
+    "ideologias políticas complexas": ["Anarco-sindicalismo", "Comunismo de conselhos", "Socialismo libertário", "Democracia participativa", "Capitalismo de Estado"],
+    "obras literárias desafiadoras": ["Ulisses", "Em Busca do Tempo Perdido", "Cem Anos de Solidão", "O Som e a Fúria", "O Apanhador no Campo de Centeio"],
+    "guerras modernas": ["Segunda Guerra Mundial", "Guerra Fria", "Guerra do Vietnã", "Guerra do Golfo", "Guerra Civil Síria"],
+    "problemas matemáticos não resolvidos": ["Conjectura de Goldbach", "Conjectura de Hodge", "Hipótese de Riemann", "Conjectura de Poincaré", "Conjectura de Birch e Swinnerton-Dyer"]
   }
 }
