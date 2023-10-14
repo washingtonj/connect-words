@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from 'next/navigation'
 import { Wordcard } from '@/components/Wordcard'
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { useMedia } from "react-use";
 
 export default function Home() {
   const [words, setWords] = useState<string[]>([])
@@ -19,7 +19,7 @@ export default function Home() {
 
   const combinationsColors = ['bg-red-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400', 'bg-purple-400', 'bg-pink-400']
 
-  const isMobile = useMediaQuery('only screen and (max-width: 640px)');
+  const isMobile = useMedia('only screen and (max-width: 640px)', false);
 
   const wordsSplitedByColumns = useMemo(() => {
     const wordsPerColumn = isMobile ? 10 : 5
