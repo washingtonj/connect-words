@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from 'next/navigation'
 import { Wordcard } from '@/components/Wordcard'
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 export default function Home() {
   const [words, setWords] = useState<string[]>([])
@@ -17,6 +18,20 @@ export default function Home() {
   const startDate = useMemo(() => new Date(), [])
 
   const combinationsColors = ['bg-red-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400', 'bg-purple-400', 'bg-pink-400']
+
+  const isMobile = useMediaQuery('only screen and (max-width: 640px)');
+
+  const wordsSplitedByColumns = useMemo(() => {
+    const wordsPerColumn = isMobile ? 10 : 5
+    const wordsSplited = []
+
+    for (let i = 0; i < words.length; i += wordsPerColumn) {
+      wordsSplited.push(words.slice(i, i + wordsPerColumn))
+    }
+
+    return wordsSplited
+  }, [words, isMobile])
+
 
   const validateCombination = useCallback(async () => {
     setValidating(true)
@@ -113,7 +128,7 @@ export default function Home() {
 
 
   return (
-    <main className="flex flex-col items-center mt-4 mb-8 px-2 lg:mt-24">
+    <main className="flex flex-col items-center mt-6 mb-8 px-2 lg:mt-24">
       {loading && (
         <div className="flex items-center justify-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
@@ -121,21 +136,25 @@ export default function Home() {
       )}
 
       {!loading && (
-        <div className="flex flex-col gap-4 px-2 w-full lg:px-20">
+        <div className="flex flex-col gap-4 px-1 w-full lg:px-20">
           <span className="flex items-center gap-2">
             <p className="font-bold">Tentativas:</p>
             <p>{attempts}</p>
           </span>
 
           <div className={`grid grid-cols-3 lg:grid-cols-6 gap-1 ${validating ? 'pointer-events-none' : ''}`}>
-            {words.map((word) => (
-              <Wordcard
-                key={word}
-                word={word}
-                onClick={handleSelect}
-                selected={selectedWords.includes(word)}
-                bgColor={findColorOfSelectedWord(word)}
-              />
+            {wordsSplitedByColumns.map((column, index) => (
+              <div key={index} className="grid gap-1">
+                {column.map((word) => (
+                  <Wordcard
+                    key={word}
+                    word={word}
+                    selected={selectedWords.includes(word)}
+                    bgColor={findColorOfSelectedWord(word)}
+                    onClick={() => handleSelect(word)}
+                  />
+                ))}
+              </div>
             ))}
           </div>
 
