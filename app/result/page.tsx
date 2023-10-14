@@ -25,7 +25,7 @@ export default function Result() {
         <p className="capitalize"><b>Tópicos:</b> {combinations.join(', ')}</p>
       </span>
 
-      <Link href="/">
+      <Link href="/game">
         <Button className="mt-8">Iniciar uma nova partida</Button>
       </Link>
     </div>
