@@ -18,7 +18,7 @@ export function GameExample() {
     <div className="flex flex-col gap-4">
       <p className="text-sm font-bold">Exemplo</p>
 
-      <WordTable validating={true}>
+      <WordTable validating={true} className='lg:grid-cols-5'>
         {
           example.map((word, index) => (
             <WordCard

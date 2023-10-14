@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from 'next/navigation'
-import { WordTable, WordCard, WordTopics } from '@/components/game'
+import { WordTable, WordCard, WordTopics, WordStats } from '@/components/game'
+import { Spinner } from '@/components/ui'
 import { useMedia } from "react-use";
 
 export default function Home() {
@@ -129,18 +130,11 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center mt-6 mb-8 px-2 lg:mt-24">
-      {loading && (
-        <div className="h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
-        </div>
-      )}
+      {loading && <Spinner />}
 
       {!loading && (
         <div className="flex flex-col gap-4 px-1 w-full lg:px-20">
-          <span className="flex items-center gap-2">
-            <p className="font-bold">Tentativas:</p>
-            <p>{attempts}</p>
-          </span>
+          <WordStats attempts={attempts} />
 
           <WordTable validating={validating}>
             {wordsSplitedByColumns.map((column, index) => (

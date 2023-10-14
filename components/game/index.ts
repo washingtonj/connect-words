@@ -1,4 +1,5 @@
 export * from './wordcard'
 export * from './wordtable'
 export * from './wordtopics'
+export * from './wordstats'
 export * from './example'
