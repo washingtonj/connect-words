@@ -9,6 +9,7 @@ export async function GET(_request: Request) {
   const words: string[] = []
 
   const difficulties = Object.keys(WORDS_DB) as Array<WordDBDifficulty>
+  const usedTopics: WordDBTopic[] = []
 
   while (words.length < 30) {
     const difficulty = difficulties[Math.floor(Math.random() * difficulties.length)]
@@ -19,6 +20,9 @@ export async function GET(_request: Request) {
     const topicName = Object.keys(WORDS_DB[difficulty])[randomSelectedTopic] as WordDBTopic
     const selectedTopic = WORDS_DB[difficulty][topicName] as string[]
 
+    if (usedTopics.includes(topicName)) continue
+
+    usedTopics.push(topicName)
     words.push(...selectedTopic)
   }
 

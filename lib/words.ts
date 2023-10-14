@@ -15,22 +15,10 @@ export const WORDS_DB = {
     "bebidas": ["Café", "Chá", "Suco", "Refrigerante", "Água"],
     "doces": ["Bolo", "Sorvete", "Chocolate", "Pudim", "Gelatina"],
     "partes do corpo": ["Cabeça", "Braço", "Perna", "Pé", "Mão"],
-    "estações de trem": ["Estação A", "Estação B", "Estação C", "Estação D", "Estação E"],
     "televisão": ["Série", "Filme", "Documentário", "Novela", "Reality show"],
     "eletrodomésticos": ["Geladeira", "Fogão", "Máquina de lavar", "Liquidificador", "Micro-ondas"],
     "planetário": ["Mercúrio", "Vênus", "Terra", "Marte", "Júpiter"],
-    "instrumentos de escrita": ["Caneta", "Lápis", "Canetinha", "Marca-texto", "Giz"],
-    "supermercado": ["Arroz", "Feijão", "Macarrão", "Azeite", "Vinagre"],
-    "objetos de escritório": ["Caneta", "Papel", "Grampeador", "Lápis", "Clipes"],
-    "filmes de comédia": ["Superbad", "Se Beber, Não Case", "Escola de Rock", "Debi & Lóide", "As Branquelas"],
-    "músicas pop": ["Shape of You", "Despacito", "Uptown Funk", "Blinding Lights", "Dynamite"],
-    "itens de higiene pessoal": ["Escova de dentes", "Sabonete", "Xampu", "Desodorante", "Toalha"],
-    "raças de cachorros": ["Labrador Retriever", "Bulldog", "Poodle", "Beagle", "Dálmata"],
-    "esportes de inverno": ["Esqui alpino", "Snowboard", "Bobsleigh", "Patinagem artística", "Hóquei no gelo"],
-    "peças de roupa": ["Camiseta", "Calça jeans", "Vestido", "Jaqueta", "Sapatos"],
-    "séries de televisão": ["Friends", "Stranger Things", "Breaking Bad", "Game of Thrones", "The Mandalorian"],
-    "pratos internacionais": ["Sushi", "Paella", "Pad Thai", "Moussaka", "Tacos"],
-    "músicas clássicas": ["Canon in D", "Für Elise", "Ave Maria", "Sinfonia do Novo Mundo", "Réquiem"]
+    "instrumentos de escrita": ["Caneta", "Lápis", "Canetinha", "Marca-texto", "Giz"]
   },
   "medio": {
     "ferramentas": ["Martelo", "Chave de fenda", "Serra elétrica", "Furadeira", "Alicate"],
@@ -40,18 +28,18 @@ export const WORDS_DB = {
     "medicina": ["Cardiologia", "Dermatologia", "Ginecologia", "Pediatria", "Oftalmologia"],
     "compositores clássicos": ["Mozart", "Beethoven", "Bach", "Chopin", "Vivaldi"],
     "literatura clássica": ["Dom Quixote", "Moby Dick", "Hamlet", "Dom Casmurro", "A Divina Comédia"],
-    "movimentos artísticos": ["Renascimento", "Barroco", "Impressionismo", "Cubismo", "Surrealismo"],
+    "movimentos artísticos": ["Renascimento", "Arte Barroca", "Impressionismo", "Cubismo", "Surrealismo"],
     "filósofos famosos": ["Platão", "Aristóteles", "Nietzsche", "Sócrates", "Descartes"],
     "estilos de dança": ["Salsa", "Tango", "Ballet", "Hip-hop", "Flamenco"],
     "instrumentos de corda": ["Violino", "Viola", "Violoncelo", "Contrabaixo", "Guitarra"],
     "elementos químicos": ["Oxigênio", "Hidrogênio", "Carbono", "Nitrogênio", "Ferro"],
-    "artistas renomados": ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Frida Kahlo", "Salvador Dalí"],
+    "artistas renomados": ["da Vinci", "van Gogh", "Picasso", "Kahlo", "Dalí"],
     "conceitos matemáticos": ["Álgebra", "Geometria", "Cálculo", "Trigonometria", "Estatística"],
     "correntes filosóficas": ["Existencialismo", "Empirismo", "Racionalismo", "Idealismo", "Positivismo"],
     "gêneros literários": ["Poesia", "Romance", "Drama", "Ficção científica", "Biografia"],
     "movimentos sociais": ["Feminismo", "Direitos civis", "Movimento LGBTQ+", "Abolicionismo", "Ecologismo"],
     "estilos arquitetônicos": ["Gótico", "Barroco", "Art Nouveau", "Neoclássico", "Modernismo"],
-    "compositores contemporâneos": ["Hans Zimmer", "John Williams", "Ennio Morricone", "Yann Tiersen", "Hans Zimmer"],
+    "compositores contemporâneos": ["Hans Zimmer", "John Williams", "Ennio Morricone", "Yann Tiersen", "Richard Bennett"],
     "teorias científicas": ["Teoria da Relatividade", "Big Bang", "Evolução", "Física Quântica", "Teoria do Caos"],
     "estilos de arte": ["Realismo", "Impressionismo", "Abstracionismo", "Cubismo", "Surrealismo"],
     "compositores românticos": ["Chopin", "Schubert", "Tchaikovsky", "Verdi", "Liszt"],
@@ -59,9 +47,9 @@ export const WORDS_DB = {
     "jogos de tabuleiro": ["Xadrez", "Dama", "War", "Dominó", "Detetive"],
     "gêneros cinematográficos": ["Suspense", "Aventura", "Fantasia", "Romance", "Mistério"],
     "teorias de aprendizagem": ["Behaviorismo", "Construtivismo", "Humanismo", "Cognitivismo", "Conectivismo"],
-    "movimentos feministas": ["Sufrágio feminino", "Feminismo radical", "Feminismo liberal", "Feminismo socialista", "Feminismo interseccional"],
     "filósofos contemporâneos": ["Slavoj Žižek", "Judith Butler", "Noam Chomsky", "Martha Nussbaum", "Peter Singer"],
-    "conflitos históricos": ["Segunda Guerra Mundial", "Guerra Fria", "Guerra do Vietnã", "Revolução Russa", "Guerra Civil Americana"]
+    "conflitos históricos": ["Segunda Guerra", "Guerra Fria", "Guerra do Vietnã", "Revolução Russa", "Guerra Civil Americana"],
+    "religiao": ["Cristianismo", "Islamismo", "Hinduísmo", "Budismo", "Judaísmo"],
   },
   "dificil": {
     "termos médicos": ["Eletroencefalograma", "Anticonstitucionalidade", "Otorrinolaringologista", "Desoxirribonucleico", "Imunofluorescência"],
@@ -85,7 +73,6 @@ export const WORDS_DB = {
     "conceitos de psicologia profunda": ["Inconsciente coletivo", "Arquétipos", "Complexo de Édipo", "Mecanismos de defesa", "Teoria da Sombra"],
     "termos de teoria da música avançada": ["Polifonia", "Cromatismo", "Modulação", "Tessitura", "Contraponto"],
     "esculturas famosas": ["David de Michelangelo", "Pietà de Michelangelo", "O Pensador de Rodin", "Vênus de Milo", "Discóbolo de Míron"],
-    "guerras antigas": ["Guerras Médicas", "Guerra do Peloponeso", "Guerras Púnicas", "Guerras Dacias", "Guerras Servis"],
     "teorias de linguística": ["Sociolinguística", "Fonologia", "Morfologia", "Sintaxe", "Semântica"],
     "estilos de música erudita": ["Barroco", "Clássico", "Romântico", "Impressionista", "Contemporâneo"],
     "revoluções políticas": ["Revolução Francesa", "Revolução Russa", "Revolução Americana", "Revolução Cubana", "Revolução Chinesa"],
@@ -127,4 +114,4 @@ export const WORDS_DB = {
     "guerras modernas": ["Segunda Guerra Mundial", "Guerra Fria", "Guerra do Vietnã", "Guerra do Golfo", "Guerra Civil Síria"],
     "problemas matemáticos não resolvidos": ["Conjectura de Goldbach", "Conjectura de Hodge", "Hipótese de Riemann", "Conjectura de Poincaré", "Conjectura de Birch e Swinnerton-Dyer"]
   }
-}
+};
