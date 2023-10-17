@@ -122,7 +122,10 @@ export default function Home() {
       const only12Characters = inputedPlayerName.slice(0, 12)
       localStorage.setItem('playerName', only12Characters)
       setPlayerName(only12Characters)
+      return
     }
+
+    router.push('/')
   }
 
 
