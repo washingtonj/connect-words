@@ -1,6 +1,5 @@
 export const WORDS_DB = {
-  "facil": {
-    "alimentos": ["Maçã", "Banana", "Laranja", "Morango", "Abacaxi"],
+  "easy": {
     "cores": ["Azul", "Verde", "Vermelho", "Amarelo", "Rosa"],
     "animais": ["Cachorro", "Gato", "Coelho", "Pássaro", "Peixe"],
     "transporte": ["Carro", "Ônibus", "Trem", "Bicicleta", "Avião"],
@@ -20,7 +19,7 @@ export const WORDS_DB = {
     "planetário": ["Mercúrio", "Vênus", "Terra", "Marte", "Júpiter"],
     "instrumentos de escrita": ["Caneta", "Lápis", "Canetinha", "Marca-texto", "Giz"]
   },
-  "medio": {
+  "medium": {
     "ferramentas": ["Martelo", "Chave de fenda", "Serra elétrica", "Furadeira", "Alicate"],
     "disciplinas escolares": ["História", "Matemática", "Biologia", "Física", "Química"],
     "profissões": ["Médico", "Advogado", "Engenheiro", "Professor", "Arquiteto"],
@@ -51,7 +50,7 @@ export const WORDS_DB = {
     "conflitos históricos": ["Segunda Guerra", "Guerra Fria", "Guerra do Vietnã", "Revolução Russa", "Guerra Civil Americana"],
     "religiao": ["Cristianismo", "Islamismo", "Hinduísmo", "Budismo", "Judaísmo"],
   },
-  "dificil": {
+  "hard": {
     "termos médicos": ["Eletroencefalograma", "Anticonstitucionalidade", "Otorrinolaringologista", "Desoxirribonucleico", "Imunofluorescência"],
     "termos científicos": ["Fotossíntese", "Eletromagnetismo", "Cinemática", "Mitocôndria", "Estrutura molecular"],
     "teorias filosóficas": ["Existencialismo", "Fenomenologia", "Dialética", "Construtivismo", "Empirismo"],
@@ -82,7 +81,7 @@ export const WORDS_DB = {
     "teorias sociológicas": ["Funcionalismo", "Conflito", "Interação simbólica", "Estruturalismo", "Pós-modernismo"],
     "epopeias clássicas": ["Ilíada", "Odisseia", "Eneida", "Mahabharata", "Ramayana"]
   },
-  "muito_dificil": {
+  "veryHard": {
     "complicações médicas raras": ["Encefalomielite", "Mielodisplasia", "Esclerose sistêmica", "Neurossífilis", "Poliomielite"],
     "teoremas matemáticos avançados": ["Teorema de Fermat", "Teorema de Gödel", "Teorema de Cantor", "Teorema de Euler", "Teorema de Poincaré"],
     "doenças neurodegenerativas raras": ["Doença de Creutzfeldt-Jakob", "Esclerose lateral amiotrófica", "Atrofia muscular espinhal", "Doença de Huntington", "Síndrome de Guillain-Barré"],
@@ -115,3 +114,8 @@ export const WORDS_DB = {
     "problemas matemáticos não resolvidos": ["Conjectura de Goldbach", "Conjectura de Hodge", "Hipótese de Riemann", "Conjectura de Poincaré", "Conjectura de Birch e Swinnerton-Dyer"]
   }
 };
+
+
+export type WordDBDifficulty = keyof typeof WORDS_DB
+
+export type WordDBTopic = keyof typeof WORDS_DB[WordDBDifficulty]

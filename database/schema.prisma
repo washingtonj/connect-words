@@ -1,0 +1,17 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Rank {
+  id String @id
+  author String
+  attempts Int
+  time String
+  points Int
+  combinations String[]
+}

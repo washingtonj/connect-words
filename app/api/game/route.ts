@@ -1,9 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { WORDS_DB } from '@/lib/words'
+import { WORDS_DB, WordDBDifficulty, WordDBTopic } from '@/lib/words'
 import { NextResponse } from "next/server";
 
-type WordDBDifficulty = keyof typeof WORDS_DB
-type WordDBTopic = keyof typeof WORDS_DB[WordDBDifficulty]
+
 
 export async function GET(_request: Request) {
   const words: string[] = []
