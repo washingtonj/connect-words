@@ -1,8 +1,12 @@
 import { Logo, Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui'
 import { prisma } from '@/lib/prisma'
+import { cache } from 'react'
 
-export default async function Ranking() {
-  // Use prisma to get only the first 10 users with the highest score
+const REAVALIDATE_TIME = 2 * 60
+
+export const revalidate = REAVALIDATE_TIME
+
+const getServerSideProps = cache(async () => {
   const data = await prisma.rank.findMany({
     where: {},
     orderBy: [
@@ -12,6 +16,17 @@ export default async function Ranking() {
     ],
     take: 10,
   })
+
+  return data
+})
+
+export default async function Ranking() {
+  // Use prisma to get only the first 10 users with the highest score
+  const data = await getServerSideProps()
+
+  // Create the date that the ranking will be updated
+  const date = new Date()
+  date.setSeconds(date.getSeconds() + REAVALIDATE_TIME)
 
   const hasData = data.length > 0
 
@@ -26,6 +41,9 @@ export default async function Ranking() {
         <p><b>Pontos</b> é a pontuação que o jogador obteve com base na dificuldade dos tópicos.</p>
       </span>
 
+      <div>
+        <p className="text-sm text-gray-500">Próxima atualização: <b>{date.toLocaleString('pt-BR')}</b></p>
+      </div>
 
       {
         hasData && (
