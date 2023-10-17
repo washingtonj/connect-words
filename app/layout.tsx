@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Brennas Connect',
-  description: 'Encontre palavras conexas em português',
+  description: 'Encontre palavras conexas em português'
 }
 
 export default function RootLayout({
