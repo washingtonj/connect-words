@@ -5,7 +5,7 @@ import { Logo } from '@/components/ui'
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center justify-center p-6">
+    <div className="flex flex-col items-center justify-center p-8">
       <Logo />
 
       <span className='lg:w-6/12 text-sm my-10'>
@@ -20,9 +20,14 @@ export default function Page() {
         <GameExample />
       </span>
 
-      <Link className='mt-8' href="/game">
-        <Button>Iniciar uma partida</Button>
-      </Link>
+      <div className='flex gap-2'>
+        <Link className='mt-8' href="/game">
+          <Button>🏁 Iniciar uma partida</Button>
+        </Link>
+        <Link className='mt-8' href="/ranking">
+          <Button>⭐️ Ver ranking</Button>
+        </Link>
+      </div>
     </div>
   )
 }

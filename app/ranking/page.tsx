@@ -1,8 +1,8 @@
-import { Logo, Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui'
+import { DateTime, Logo, Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui'
 import { prisma } from '@/lib/prisma'
 import { cache } from 'react'
 
-const REAVALIDATE_TIME = 2 * 60
+const REAVALIDATE_TIME = 1 * 60
 
 export const revalidate = REAVALIDATE_TIME
 
@@ -34,7 +34,7 @@ export default async function Ranking() {
     <div className='flex flex-col gap-8 pt-8 px-4 lg:max-w-2xl lg:m-auto'>
       <Logo />
 
-      <p>Veja quem são os 10 melhores jogadores do jogo, você também pode estar aqui!</p> 
+      <p>Veja quem são os 10 melhores jogadores do jogo, você também pode estar aqui!</p>
 
       <span>
         <p><b>Tempo</b> é o tempo que o jogador levou para completar o jogo.</p>
@@ -42,7 +42,7 @@ export default async function Ranking() {
       </span>
 
       <div>
-        <p className="text-sm text-gray-500">Próxima atualização: <b>{date.toLocaleString('pt-BR')}</b></p>
+        <p className="text-sm text-gray-500">Próxima atualização: <b><DateTime date={date} /></b></p>
       </div>
 
       {
