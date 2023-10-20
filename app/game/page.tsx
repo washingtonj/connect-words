@@ -23,7 +23,14 @@ export default function Home() {
 
   const startDate = useMemo(() => new Date(), [])
 
-  const combinationsColors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500', 'bg-pink-500']
+  const combinationsColors = [
+    'bg-zinc-400 dark:bg-zinc-700',
+    'bg-zinc-500 dark:bg-zinc-600',
+    'bg-zinc-600 dark:bg-zinc-500',
+    'bg-zinc-700 dark:bg-zinc-400',
+    'bg-zinc-800 dark:bg-zinc-300',
+    'bg-zinc-900 dark:bg-zinc-200',
+  ];
 
   const isMobile = useMedia('only screen and (max-width: 640px)', false);
 
@@ -110,7 +117,7 @@ export default function Home() {
 
   function handlePlayerIdentification() {
     const playerName = localStorage.getItem('playerName')
-    
+
     if (playerName) {
       setPlayerName(playerName)
       return
@@ -140,7 +147,7 @@ export default function Home() {
   useEffect(() => {
     if (combinations && Object.keys(combinations).length == 6) {
       setSubmitting(true)
-    
+
       fetch(`/api/ranking`, {
         method: 'POST',
         body: JSON.stringify({
@@ -160,14 +167,14 @@ export default function Home() {
   }, [combinations])
 
 
-  useEffect(() => { 
+  useEffect(() => {
     handlePlayerIdentification()
-    loadWords() 
+    loadWords()
   }, [])
 
 
   return (
-    <main className="flex flex-col items-center mt-6 mb-8 px-2 lg:mt-24">
+    <main className="flex flex-col items-center mt-6 mb-8 lg:mt-24">
       {loading && <Spinner />}
 
       {submitting && (
@@ -177,31 +184,37 @@ export default function Home() {
         </div>
       )}
 
-      {(!loading && !submitting ) && (
+      {(!loading && !submitting) && (
         <div className="flex flex-col gap-4 px-1 w-full lg:px-20">
-          <WordStats attempts={attempts} playerName={playerName} />
+          <div className="px-2">
+            <WordStats attempts={attempts} playerName={playerName} />
+          </div>
 
-          <WordTable validating={validating}>
-            {wordsSplitedByColumns.map((column, index) => (
-              <div key={index} className="grid gap-1">
-                {column.map((word) => (
-                  <WordCard
-                    key={word}
-                    word={word}
-                    selected={selectedWords.includes(word)}
-                    bgColor={findColorOfSelectedWord(word)}
-                    onClick={() => handleSelect(word)}
-                  />
-                ))}
-              </div>
-            ))}
-          </WordTable>
+          <div className="px-0.5">
+            <WordTable validating={validating}>
+              {wordsSplitedByColumns.map((column, index) => (
+                <div key={index} className="grid gap-1">
+                  {column.map((word) => (
+                    <WordCard
+                      key={word}
+                      word={word}
+                      selected={selectedWords.includes(word)}
+                      bgColor={findColorOfSelectedWord(word)}
+                      onClick={() => handleSelect(word)}
+                    />
+                  ))}
+                </div>
+              ))}
+            </WordTable>
+          </div>
 
           {combinations && (
-            <WordTopics
-              findedTopics={Object.keys(combinations)}
-              colors={combinationsColors}
-            />
+            <div className="px-2">
+              <WordTopics
+                findedTopics={Object.keys(combinations)}
+                colors={combinationsColors}
+              />
+            </div>
           )}
         </div>
       )}

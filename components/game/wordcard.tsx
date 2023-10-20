@@ -8,18 +8,18 @@ type WordCardProps = {
 }
 
 export function WordCard(props: WordCardProps) {
-  const className = cn([
-    'transition-colors px-2 py-4 lg:px-2 lg:h-20 text-center text-sm flex items-center justify-center break-words border rounded-md cursor-pointer',
-    props.selected ? "bg-slate-900 text-white" : "bg-white text-gray-900",
-    props.bgColor && `pointer-events-none ${props.bgColor} text-white`
-  ])
-
   return (
     <div
-      className={className}
+      className={cn([
+        'flex items-center justify-center px-2 py-4 lg:px-2 lg:h-20 rounded-md transition-all duration-200 hover:bg-zinc-200 cursor-pointer',
+        props.selected ? "bg-zinc-950 hover:bg-zinc-950 text-white" : "bg-zinc-100 dark:bg-zinc-800",
+        props.bgColor && `pointer-events-none text-white ${props.bgColor}`
+      ])}
       onClick={() => props.onClick(props.word)}
     >
-      {props.word}
+      <p className="text-center text-sm break-words">
+        {props.word}
+      </p>
     </div>
   )
 }

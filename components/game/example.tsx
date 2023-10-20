@@ -1,12 +1,14 @@
 "use client"
 
+import { memo } from 'react'
 import { useRenderCtx } from '@/hooks'
 import { WORDS_DB } from "@/lib/words"
 import { WordTable, WordCard, WordTopics } from "@/components/game"
 import { Spinner } from '@/components/ui'
 
 
-export function GameExample() {
+// eslint-disable-next-line react/display-name
+export const GameExample = memo(() => {
   const { isClient } = useRenderCtx()
 
   const example = [
@@ -16,7 +18,7 @@ export function GameExample() {
   ].sort(() => Math.random() - 0.5)
 
   return isClient ? (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col w-full gap-4">
       <p className="text-sm font-bold">Exemplo</p>
 
       <WordTable validating={true} className='lg:grid-cols-5'>
@@ -25,7 +27,7 @@ export function GameExample() {
             <WordCard
               key={index}
               word={word}
-              bgColor={WORDS_DB['medium']['elementos químicos'].includes(word) ? 'bg-red-500' : undefined}
+              bgColor={WORDS_DB['medium']['elementos químicos'].includes(word) ? 'bg-zinc-800 dark:bg-zinc-500' : undefined}
               onClick={() => { }}
             />
           ))
@@ -33,8 +35,11 @@ export function GameExample() {
       </WordTable>
       <WordTopics
         findedTopics={['elementos químicos']}
-        colors={['bg-red-500']}
+        colors={['bg-zinc-800 dark:bg-zinc-500']}
       />
     </div>
-  ) : <Spinner />
-}
+  ) : <div className='flex items-center justify-center'>
+    <Spinner />
+  </div>
+})
+
