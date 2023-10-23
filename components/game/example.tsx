@@ -14,7 +14,7 @@ export const GameExample = memo(() => {
   const example = [
     ...WORDS_DB['medium']['elementos químicos'],
     ...WORDS_DB['easy']['doces'],
-    ...WORDS_DB['hard']['epopeias clássicas']
+    ...WORDS_DB['hard']['antigos impérios']
   ].sort(() => Math.random() - 0.5)
 
   return isClient ? (
