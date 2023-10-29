@@ -4,7 +4,7 @@ import { Dispatch, PropsWithChildren, createContext, useCallback, useEffect, use
 import { Settings } from '@/entities'
 
 const initialState: Settings = {
-  nickname: localStorage.getItem('playerName') as Settings['nickname'] || 'Anonymous',
+  nickname: localStorage.getItem('playerName') as Settings['nickname'] || undefined,
   theme: localStorage.getItem('theme') as Settings['theme'] || 'light',
   difficulty: localStorage.getItem('difficulty') as Settings['difficulty'] || 'very_hard',
   language: 'pt_BR',
@@ -18,7 +18,7 @@ export type SettingsActions = {
   payload: Settings['language']
 } | {
   type: 'SET_NICKNAME'
-  payload: Settings['nickname']
+  payload: string
 } | {
   type: 'SET_DIFFICULTY'
   payload: Settings['difficulty']

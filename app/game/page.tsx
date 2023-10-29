@@ -126,7 +126,7 @@ export default function Game() {
 
     const allCombinationsFinded = combinations && Object.keys(combinations).length === 6
 
-    if (allCombinationsFinded) {
+    if (allCombinationsFinded && settings.nickname) {
       setSubmitting(true)
 
       fetch(`/api/ranking`, {
@@ -159,7 +159,7 @@ export default function Game() {
         </div>
       )}
 
-      {(!loading && !submitting) && (
+      {(!loading && !submitting && settings.nickname) && (
         <div className="flex flex-col gap-4 px-1 w-full lg:px-20">
           <div className="px-2">
             <Stats attempts={attempts} playerName={settings.nickname} />
