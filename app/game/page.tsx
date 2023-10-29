@@ -1,11 +1,12 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useMedia } from "react-use";
 import { useRouter } from 'next/navigation'
 import { WordTable, WordCard, WordTopics, WordStats } from '@/components/game'
 import { Spinner } from '@/components/ui'
-import { ResultDTO } from '@/dtos'
+import { Result } from '@/entities'
+import { SettingsContext } from "@/contexts";
 
 export default function Home() {
   const [words, setWords] = useState<string[]>([])
@@ -13,13 +14,13 @@ export default function Home() {
   const [attempts, setAttempts] = useState(0)
   const [selectedWords, setSelectedWords] = useState<string[]>([])
 
-  const [playerName, setPlayerName] = useState<string>('')
-
   const [validating, setValidating] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
+
+  const [settings, setSettings] = useContext(SettingsContext)
 
   const startDate = useMemo(() => new Date(), [])
 
@@ -75,13 +76,14 @@ export default function Home() {
 
   async function loadWords() {
     try {
-      const data = await fetch('/api/game')
+      const data = await fetch(`/api/game?difficulty=${settings.difficulty}`)
       const response = await data.json()
       setWords(response)
     }
 
     catch (error) {
       alert('Error on load words')
+      router.push('/')
     }
 
     finally {
@@ -116,19 +118,13 @@ export default function Home() {
   }
 
   function handlePlayerIdentification() {
-    const playerName = localStorage.getItem('playerName')
-
-    if (playerName) {
-      setPlayerName(playerName)
-      return
-    }
+    if (settings.nickname) return
 
     const inputedPlayerName = prompt('Crie um apelido para identificar seus resultados: e.g: "Linguiço/a"')
 
     if (inputedPlayerName) {
       const only12Characters = inputedPlayerName.slice(0, 12)
-      localStorage.setItem('playerName', only12Characters)
-      setPlayerName(only12Characters)
+      setSettings({ type: 'SET_NICKNAME', payload: only12Characters })
       return
     }
 
@@ -151,11 +147,11 @@ export default function Home() {
       fetch(`/api/ranking`, {
         method: 'POST',
         body: JSON.stringify({
-          playerName,
+          playerName: settings.nickname,
           attempts,
           combinations: Object.keys(combinations),
           time: calculateTimeDifference()
-        } satisfies ResultDTO),
+        } satisfies Result),
       })
         .then((response) => response.json())
         .then((data) => router.push(`/result?v=${data.id}`))
@@ -170,6 +166,8 @@ export default function Home() {
   useEffect(() => {
     handlePlayerIdentification()
     loadWords()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -187,7 +185,7 @@ export default function Home() {
       {(!loading && !submitting) && (
         <div className="flex flex-col gap-4 px-1 w-full lg:px-20">
           <div className="px-2">
-            <WordStats attempts={attempts} playerName={playerName} />
+            <WordStats attempts={attempts} playerName={settings.nickname} />
           </div>
 
           <div className="px-0.5">

@@ -1,4 +1,4 @@
-export interface ResultDTO {
+export interface Result {
   playerName: string
   attempts: number
   combinations: string[]

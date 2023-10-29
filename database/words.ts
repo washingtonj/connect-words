@@ -77,7 +77,7 @@ export const WORDS_DB = {
     "obras literárias canônicas": ["Dom Quixote", "Os Miseráveis", "Guerra e Paz", "Ulisses", "Cem Anos de Solidão"],
     "teorias de administração": ["Teoria Clássica", "Teoria das Relações Humanas", "Administração por Objetivos", "Administração Científica", "Gestão da Qualidade Total"]
   },
-  "veryHard": {
+  "very_hard": {
     "complicações médicas raras": ["Encefalomielite", "Mielodisplasia", "Esclerose sistêmica", "Neurossífilis", "Poliomielite"],
     "teoremas matemáticos avançados": ["Fermat", "Gödel", "Cantor", "Euler", "Poincaré"],
     "instrumentos musicais complexos": ["Theremim", "Ondes Martenot", "Clavicórdio", "Serrote musical", "Órgão de tubos"],
@@ -107,6 +107,5 @@ export const WORDS_DB = {
 };
 
 
-export type WordDBDifficulty = keyof typeof WORDS_DB
-
-export type WordDBTopic = keyof typeof WORDS_DB[WordDBDifficulty]
+export type TopicDifficulty = keyof typeof WORDS_DB
+export type Topic = keyof typeof WORDS_DB[TopicDifficulty]

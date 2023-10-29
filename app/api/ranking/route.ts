@@ -1,37 +1,34 @@
 import ShortUniqueId from 'short-unique-id'
+
 import { NextRequest } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { ResultDTO } from '@/dtos'
-import { WORDS_DB, WordDBDifficulty } from '@/lib/words'
+import { Result } from '@/entities'
+import { WORDS_DB, TopicDifficulty } from '@/database/words'
 
 const pointsByDifficulty = {
   easy: 5,
   medium: 10,
   hard: 15,
-  veryHard: 20
-} satisfies Record<WordDBDifficulty, number>
+  very_hard: 20
+} satisfies Record<TopicDifficulty, number>
 
 
 export async function POST(request: NextRequest) {
-  // Get the data from the body
-  const { attempts, combinations, time, playerName } = await request.json() as ResultDTO
+  const { attempts, combinations, time, playerName } = await request.json() as Result
 
-
-  // Find the difficulty of the words and calculate the points
   let points = 0
 
   for (const difficulty in WORDS_DB) {
-    const topicsByDifficulty = Object.keys(WORDS_DB[difficulty as WordDBDifficulty])
+    const topicsByDifficulty = Object.keys(WORDS_DB[difficulty as TopicDifficulty])
 
     for (const combination of combinations) {
       if (topicsByDifficulty.includes(combination)) {
-        points += pointsByDifficulty[difficulty as WordDBDifficulty]
+        points += pointsByDifficulty[difficulty as TopicDifficulty]
         continue
       }
     }
   }
-
-  // Save the rank
+  
   const data = await prisma.rank.create({
     data: {
       id: new ShortUniqueId().randomUUID(10),

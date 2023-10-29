@@ -2,7 +2,7 @@
 
 import { memo } from 'react'
 import { useRenderCtx } from '@/hooks'
-import { WORDS_DB } from "@/lib/words"
+import { WORDS_DB } from "@/database/words"
 import { WordTable, WordCard, WordTopics } from "@/components/game"
 import { Spinner } from '@/components/ui'
 
