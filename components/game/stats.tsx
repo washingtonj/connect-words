@@ -1,9 +1,9 @@
-type WordStatsProps = {
+type StatsProps = {
   attempts: number
   playerName: string
 }
 
-export function WordStats(props: WordStatsProps) {
+export function Stats(props: StatsProps) {
   return (
     <div className="flex items-center justify-between">
       <span className="flex items-center gap-2">

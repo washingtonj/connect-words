@@ -2,15 +2,14 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { Settings } from '@/components/game'
 import { Button, Logo } from '@/components/ui'
-import { GameExample } from '@/components/game'
+import { Settings, Example } from '@/components/home'
 
 export default function Page() {
   const [settingsModal, setSettingsModal] = useState(false)
 
   return (
-    <div className="flex flex-col  justify-center lg:max-w-2xl lg:m-auto px-4 pt-8">
+    <div className="flex flex-col  justify-center w-full lg:max-w-2xl lg:m-auto px-4 pt-8">
       <div className='flex items-center justify-between'>
         <Logo />
 
@@ -25,7 +24,7 @@ export default function Page() {
         Prepare-se para desafios que vão do nível fácil ao mais difícil. Mergulhe na diversão das palavras e descubra todos os tópicos ocultos!
       </span>
 
-      <GameExample />
+      <Example />
 
       <div className='flex justify-center gap-2 border-t pt-2 mt-8'>
         <Link className='w-full mt-8' href="/game">

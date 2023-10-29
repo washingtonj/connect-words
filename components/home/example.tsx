@@ -3,12 +3,13 @@
 import { memo } from 'react'
 import { useRenderCtx } from '@/hooks'
 import { WORDS_DB } from "@/database/words"
-import { WordTable, WordCard, WordTopics } from "@/components/game"
+import { Table, Card, Topics } from "@/components/game"
 import { Spinner } from '@/components/ui'
+import { COLORS } from '@/consts/game'
 
 
 // eslint-disable-next-line react/display-name
-export const GameExample = memo(() => {
+export const Example = memo(() => {
   const { isClient } = useRenderCtx()
 
   const example = [
@@ -21,22 +22,20 @@ export const GameExample = memo(() => {
     <div className="flex flex-col w-full gap-4">
       <p className="text-sm font-bold">Exemplo</p>
 
-      <WordTable validating={true} className='lg:grid-cols-5'>
+      <Table isExample>
         {
           example.map((word, index) => (
-            <WordCard
+            <Card
               key={index}
               word={word}
-              bgColor={WORDS_DB['medium']['elementos químicos'].includes(word) ? 'bg-zinc-800 dark:bg-zinc-500' : undefined}
+              bgColor={WORDS_DB['medium']['elementos químicos'].includes(word) ? COLORS[0] : undefined}
               onClick={() => { }}
             />
           ))
         }
-      </WordTable>
-      <WordTopics
-        findedTopics={['elementos químicos']}
-        colors={['bg-zinc-800 dark:bg-zinc-500']}
-      />
+      </Table>
+      
+      <Topics findedTopics={['elementos químicos']} />
     </div>
   ) : <div className='flex items-center justify-center'>
     <Spinner />

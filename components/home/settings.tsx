@@ -1,4 +1,6 @@
-import { useContext, useState } from 'react'
+"use client"
+
+import { useContext, useMemo, useState } from 'react'
 import { Button, Modal } from '@/components/ui'
 import { SettingsContext } from '@/contexts'
 import { Settings } from '@/entities'
@@ -15,13 +17,19 @@ export function Settings(props: SettingsProps) {
   const [theme, setTheme] = useState<Settings['theme']>(settings.theme)
   const [nickname, setNickname] = useState<Settings['nickname']>(settings.nickname)
 
-  const hasSettingsChanged = (
-    difficulty !== settings.difficulty ||
-    theme !== settings.theme ||
-    nickname !== settings.nickname
-  )
+
+  const hasSettingsChanged = useMemo(() => {
+    return (
+      difficulty !== settings.difficulty ||
+      theme !== settings.theme ||
+      nickname !== settings.nickname
+      )
+    }, [difficulty, nickname, settings.difficulty, settings.nickname, settings.theme, theme])
+  
 
   function handleSave() {
+    if (!hasSettingsChanged) return
+
     setSettings({ type: 'SET_NICKNAME', payload: nickname })
     setSettings({ type: 'SET_THEME', payload: theme })
     setSettings({ type: 'SET_DIFFICULTY', payload: difficulty })
@@ -72,22 +80,22 @@ export function Settings(props: SettingsProps) {
             <p className="text-xs text-zinc-500">Do fácil ao mais díficil, randomico por padrão.</p>
             <div className="flex gap-2">
               <Button
-                variant={difficulty  === "easy" ? "primary" : "neutral"}
+                variant={difficulty === "easy" ? "primary" : "neutral"}
                 size="icon"
                 onClick={() => setDifficulty('easy')}
               >🥱</Button>
               <Button
-                variant={difficulty  === "medium" ? "primary" : "neutral"}
+                variant={difficulty === "medium" ? "primary" : "neutral"}
                 size="icon"
                 onClick={() => setDifficulty('medium')}
               >😐</Button>
               <Button
-                variant={difficulty  === "hard" ? "primary" : "neutral"}
+                variant={difficulty === "hard" ? "primary" : "neutral"}
                 size="icon"
                 onClick={() => setDifficulty('hard')}
               >😰</Button>
               <Button
-                variant={difficulty  === "very_hard" ? "primary" : "neutral"}
+                variant={difficulty === "very_hard" ? "primary" : "neutral"}
                 size="icon"
                 onClick={() => setDifficulty('very_hard')}
               >🤯</Button>

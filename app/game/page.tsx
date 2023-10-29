@@ -1,104 +1,37 @@
 "use client"
 
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { useMedia } from "react-use";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useRouter } from 'next/navigation'
-import { WordTable, WordCard, WordTopics, WordStats } from '@/components/game'
+import { Table, Stats, Topics, Card } from '@/components/game'
 import { Spinner } from '@/components/ui'
 import { Result } from '@/entities'
 import { SettingsContext } from "@/contexts";
+import { COLORS } from '@/consts/game'
 
-export default function Home() {
+export default function Game() {
+  const router = useRouter()
+  
+  const [settings, setSettings] = useContext(SettingsContext)
+  
   const [words, setWords] = useState<string[]>([])
   const [combinations, setCombinations] = useState<{ [key: string]: string[] } | undefined>(undefined)
   const [attempts, setAttempts] = useState(0)
   const [selectedWords, setSelectedWords] = useState<string[]>([])
-
   const [validating, setValidating] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  const router = useRouter()
-
-  const [settings, setSettings] = useContext(SettingsContext)
-
   const startDate = useMemo(() => new Date(), [])
-
-  const combinationsColors = [
-    'bg-zinc-400 dark:bg-zinc-700',
-    'bg-zinc-500 dark:bg-zinc-600',
-    'bg-zinc-600 dark:bg-zinc-500',
-    'bg-zinc-700 dark:bg-zinc-400',
-    'bg-zinc-800 dark:bg-zinc-300',
-    'bg-zinc-900 dark:bg-zinc-200',
-  ];
-
-  const isMobile = useMedia('only screen and (max-width: 640px)', false);
-
-  const wordsSplitedByColumns = useMemo(() => {
-    const wordsPerColumn = isMobile ? 10 : 5
-    const wordsSplited = []
-
-    for (let i = 0; i < words.length; i += wordsPerColumn) {
-      wordsSplited.push(words.slice(i, i + wordsPerColumn))
-    }
-
-    return wordsSplited
-  }, [words, isMobile])
-
-
-  const validateCombination = useCallback(async () => {
-    setValidating(true)
-
-    try {
-      const data = await fetch('/api/game', {
-        method: 'POST',
-        body: JSON.stringify(selectedWords),
-      })
-
-      const response = await data.json() as Record<string, string[]>
-
-      if (response.error) return
-
-      setCombinations(prev => ({ ...prev, ...response }))
-    }
-
-    catch (error) {
-      alert(error)
-    }
-
-    finally {
-      setValidating(false)
-      setSelectedWords([])
-    }
-  }, [selectedWords])
-
-
-  async function loadWords() {
-    try {
-      const data = await fetch(`/api/game?difficulty=${settings.difficulty}`)
-      const response = await data.json()
-      setWords(response)
-    }
-
-    catch (error) {
-      alert('Error on load words')
-      router.push('/')
-    }
-
-    finally {
-      setLoading(false)
-    }
-  }
 
 
   function handleSelect(item: string) {
     if (selectedWords.includes(item)) {
       setSelectedWords(selectedWords.filter((i) => i !== item));
-    } else {
-      setSelectedWords([...selectedWords, item]);
+      return
     }
+    setSelectedWords([...selectedWords, item]);
   }
+
 
   function findColorOfSelectedWord(word: string) {
     if (!combinations) return
@@ -106,42 +39,94 @@ export default function Home() {
     const topicsByCombination = Object.values(combinations)
     const selectedWordIndex = topicsByCombination.findIndex((topic) => topic.includes(word))
 
-    return combinationsColors[selectedWordIndex]
+    return COLORS[selectedWordIndex]
   }
 
-  function calculateTimeDifference() {
-    const diffInMilliseconds = new Date().getTime() - startDate.getTime();
-    const diffInMinutes = Math.floor(diffInMilliseconds / 60000);
-    const diffInSeconds = Math.floor((diffInMilliseconds % 60000) / 1000);
-
-    return `${diffInMinutes}m ${diffInSeconds}s`;
-  }
-
-  function handlePlayerIdentification() {
-    if (settings.nickname) return
-
-    const inputedPlayerName = prompt('Crie um apelido para identificar seus resultados: e.g: "Linguiço/a"')
-
-    if (inputedPlayerName) {
-      const only12Characters = inputedPlayerName.slice(0, 12)
-      setSettings({ type: 'SET_NICKNAME', payload: only12Characters })
-      return
-    }
-
-    router.push('/')
-  }
-
-
+  // Validate if nickname is setted on start
   useEffect(() => {
-    if (selectedWords.length == 5) {
-      validateCombination()
+    (async () => {
+      if (settings.nickname) return
+
+      const inputedPlayerName = prompt('Crie um apelido para identificar seus resultados: e.g: "Linguiço/a"')
+
+      if (inputedPlayerName) {
+        const only12Characters = inputedPlayerName.slice(0, 12)
+        setSettings({ type: 'SET_NICKNAME', payload: only12Characters })
+        return
+      }
+
+      router.push('/')
+    })()
+  }, [router, setSettings, settings.nickname])
+
+
+  // Load words from API on start
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetch(`/api/game?difficulty=${settings.difficulty}`)
+        const response = await data.json()
+        setWords(response)
+      }
+
+      catch (error) {
+        alert('Error on load words')
+        router.push('/')
+      }
+
+      finally {
+        setLoading(false)
+      }
+    })()
+  }, [router, settings.difficulty])
+
+
+  // Validate if all selected words is from the same combination
+  useEffect(() => {
+    if (selectedWords.length !== 5) return
+
+    (async () => {
+      setValidating(true)
+
+      try {
+        const data = await fetch('/api/game', {
+          method: 'POST',
+          body: JSON.stringify(selectedWords),
+        })
+
+        const response = await data.json() as Record<string, string[]>
+
+        if (response.error) return
+
+        setCombinations(prev => ({ ...prev, ...response }))
+      }
+
+      catch (error) {
+        alert(error)
+      }
+
+      finally {
+        setValidating(false)
+        setSelectedWords([])
+      }
+
       setAttempts(prev => prev + 1)
-    }
-  }, [selectedWords, validateCombination])
+    })()
+  }, [selectedWords])
 
 
+  // Submit result if all combinations are finded
   useEffect(() => {
-    if (combinations && Object.keys(combinations).length == 6) {
+    function calculateTimeDifference() {
+      const diffInMilliseconds = new Date().getTime() - startDate.getTime();
+      const diffInMinutes = Math.floor(diffInMilliseconds / 60000);
+      const diffInSeconds = Math.floor((diffInMilliseconds % 60000) / 1000);
+      return `${diffInMinutes}m ${diffInSeconds}s`;
+    }
+
+    const allCombinationsFinded = combinations && Object.keys(combinations).length === 6
+
+    if (allCombinationsFinded) {
       setSubmitting(true)
 
       fetch(`/api/ranking`, {
@@ -159,16 +144,8 @@ export default function Home() {
         .finally(() => setSubmitting(false))
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [combinations])
+  }, [attempts, combinations, router, settings.nickname, startDate])
 
-
-  useEffect(() => {
-    handlePlayerIdentification()
-    loadWords()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
 
   return (
@@ -185,33 +162,26 @@ export default function Home() {
       {(!loading && !submitting) && (
         <div className="flex flex-col gap-4 px-1 w-full lg:px-20">
           <div className="px-2">
-            <WordStats attempts={attempts} playerName={settings.nickname} />
+            <Stats attempts={attempts} playerName={settings.nickname} />
           </div>
 
           <div className="px-0.5">
-            <WordTable validating={validating}>
-              {wordsSplitedByColumns.map((column, index) => (
-                <div key={index} className="grid gap-1">
-                  {column.map((word) => (
-                    <WordCard
-                      key={word}
-                      word={word}
-                      selected={selectedWords.includes(word)}
-                      bgColor={findColorOfSelectedWord(word)}
-                      onClick={() => handleSelect(word)}
-                    />
-                  ))}
-                </div>
+            <Table validating={validating}>
+              {words.map((word) => (
+                <Card
+                  key={word}
+                  word={word}
+                  selected={selectedWords.includes(word)}
+                  bgColor={findColorOfSelectedWord(word)}
+                  onClick={() => handleSelect(word)}
+                />
               ))}
-            </WordTable>
+            </Table>
           </div>
 
           {combinations && (
             <div className="px-2">
-              <WordTopics
-                findedTopics={Object.keys(combinations)}
-                colors={combinationsColors}
-              />
+              <Topics findedTopics={Object.keys(combinations)} />
             </div>
           )}
         </div>
