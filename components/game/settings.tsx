@@ -9,23 +9,25 @@ type SettingsProps = {
 }
 
 export function Settings(props: SettingsProps) {
-  const [state, dispatch] = useContext(SettingsContext)
-  const [inputValue, setInputValue] = useState(state.nickname)
+  const [settings, setSettings] = useContext(SettingsContext)
 
-  function handleThemeChange(theme: 'light' | 'dark') {
-    dispatch({ type: 'SET_THEME', payload: theme })
-  }
+  const [difficulty, setDifficulty] = useState<Settings['difficulty']>(settings.difficulty)
+  const [theme, setTheme] = useState<Settings['theme']>(settings.theme)
+  const [nickname, setNickname] = useState<Settings['nickname']>(settings.nickname)
 
-  function handleDifficultyChange(difficulty: Settings['difficulty']) {
-    dispatch({ type: 'SET_DIFFICULTY', payload: difficulty })
-  }
+  const hasSettingsChanged = (
+    difficulty !== settings.difficulty ||
+    theme !== settings.theme ||
+    nickname !== settings.nickname
+  )
 
   function handleSave() {
-    dispatch({ type: 'SET_NICKNAME', payload: inputValue })
+    setSettings({ type: 'SET_NICKNAME', payload: nickname })
+    setSettings({ type: 'SET_THEME', payload: theme })
+    setSettings({ type: 'SET_DIFFICULTY', payload: difficulty })
+
     props.onClose()
   }
-
-  const inputChanged = inputValue !== state.nickname
 
   return (
     <Modal
@@ -35,7 +37,7 @@ export function Settings(props: SettingsProps) {
       actions={
         <Button
           onClick={handleSave}
-          disabled={!inputChanged}
+          disabled={!hasSettingsChanged}
           inline
         >
           Salvar
@@ -49,14 +51,14 @@ export function Settings(props: SettingsProps) {
             <p className="text-xs text-zinc-500">Escolha o tema que te agrada.</p>
             <div className="flex gap-2">
               <Button
-                onClick={() => handleThemeChange('light')}
-                variant={state.theme === 'light' ? 'primary' : 'neutral'}
+                onClick={() => setTheme('light')}
+                variant={theme === 'light' ? 'primary' : 'neutral'}
                 size="icon">
                 ☀️
               </Button>
               <Button
-                onClick={() => handleThemeChange('dark')}
-                variant={state.theme === 'dark' ? 'primary' : 'neutral'}
+                onClick={() => setTheme('dark')}
+                variant={theme === 'dark' ? 'primary' : 'neutral'}
                 size="icon">
                 🌙
               </Button>
@@ -70,24 +72,24 @@ export function Settings(props: SettingsProps) {
             <p className="text-xs text-zinc-500">Do fácil ao mais díficil, randomico por padrão.</p>
             <div className="flex gap-2">
               <Button
-                variant={state.difficulty === "easy" ? "primary" : "neutral"}
+                variant={difficulty  === "easy" ? "primary" : "neutral"}
                 size="icon"
-                onClick={() => handleDifficultyChange('easy')}
+                onClick={() => setDifficulty('easy')}
               >🥱</Button>
               <Button
-                variant={state.difficulty === "medium" ? "primary" : "neutral"}
+                variant={difficulty  === "medium" ? "primary" : "neutral"}
                 size="icon"
-                onClick={() => handleDifficultyChange('medium')}
+                onClick={() => setDifficulty('medium')}
               >😐</Button>
               <Button
-                variant={state.difficulty === "hard" ? "primary" : "neutral"}
+                variant={difficulty  === "hard" ? "primary" : "neutral"}
                 size="icon"
-                onClick={() => handleDifficultyChange('hard')}
+                onClick={() => setDifficulty('hard')}
               >😰</Button>
               <Button
-                variant={state.difficulty === "very_hard" ? "primary" : "neutral"}
+                variant={difficulty  === "very_hard" ? "primary" : "neutral"}
                 size="icon"
-                onClick={() => handleDifficultyChange('very_hard')}
+                onClick={() => setDifficulty('very_hard')}
               >🤯</Button>
             </div>
           </div>
@@ -100,8 +102,8 @@ export function Settings(props: SettingsProps) {
             <p className="text-xs text-zinc-500">Sera usado para o ranking geral do jogo.</p>
           </span>
           <input
-            defaultValue={state.nickname}
-            onChange={(e) => setInputValue(e.target.value)}
+            defaultValue={settings.nickname}
+            onChange={(e) => setNickname(e.target.value)}
             className="placeholder:text-sm text-sm border rounded-lg outline-black p-3 w-full bg-transparent"
             placeholder="Vamos lá, nos diga o melhor apelido que você tem."
             type="text"

@@ -13,9 +13,6 @@ export async function GET(request: Request) {
   if (difficultyParam) {
     const difficultyIndex = difficulties.indexOf(difficultyParam)
     difficulties = difficulties.slice(0, difficultyIndex + 1) 
-
-    console.log(difficulties)
-
   }
   
   const usedWords: string[] = []
