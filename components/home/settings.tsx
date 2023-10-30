@@ -30,9 +30,9 @@ export function Settings(props: SettingsProps) {
   function handleSave() {
     if (!hasSettingsChanged) return
 
-    setSettings({ type: 'SET_NICKNAME', payload: nickname })
-    setSettings({ type: 'SET_THEME', payload: theme })
-    setSettings({ type: 'SET_DIFFICULTY', payload: difficulty })
+    if (nickname) setSettings({ type: 'SET_NICKNAME', payload: nickname })
+    if (theme !== settings.theme) setSettings({ type: 'SET_THEME', payload: theme })
+    if (difficulty !== settings.difficulty) setSettings({ type: 'SET_DIFFICULTY', payload: difficulty })
 
     props.onClose()
   }
