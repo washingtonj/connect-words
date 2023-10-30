@@ -1,6 +1,6 @@
 "use client"
 
-import { Dispatch, PropsWithChildren, createContext, useEffect, useReducer } from 'react'
+import { Dispatch, PropsWithChildren, createContext, useEffect, useReducer, useState } from 'react'
 import { Settings } from '@/entities'
 
 const initialState: Settings = {
@@ -91,5 +91,5 @@ export function SettingsProvider(props: PropsWithChildren) {
     <SettingsContext.Provider value={[state, dispatch]}>
       {props.children}
     </SettingsContext.Provider>
-  )
+  ) 
 }

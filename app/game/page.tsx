@@ -7,10 +7,13 @@ import { Spinner } from '@/components/ui'
 import { Result } from '@/entities'
 import { SettingsContext } from "@/contexts";
 import { COLORS } from '@/consts/game'
+import { useRenderCtx } from "@/hooks";
 
 export default function Game() {
+  const { isClient } = useRenderCtx()
+
   const router = useRouter()
-  
+
   const [settings, setSettings] = useContext(SettingsContext)
   
   const [words, setWords] = useState<string[]>([])
@@ -44,6 +47,8 @@ export default function Game() {
 
   // Validate if nickname is setted on start
   useEffect(() => {
+    if (!isClient) return
+
     (async () => {
       if (settings.nickname) return
 
@@ -57,7 +62,7 @@ export default function Game() {
 
       router.push('/')
     })()
-  }, [router, setSettings, settings.nickname])
+  }, [isClient, router, setSettings, settings.nickname])
 
 
   // Load words from API on start
