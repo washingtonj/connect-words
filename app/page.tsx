@@ -12,7 +12,6 @@ export default function Page() {
     <div className="flex flex-col  justify-center w-full lg:max-w-2xl lg:m-auto px-4 pt-8">
       <div className='flex items-center justify-between'>
         <Logo />
-
         <Button onClick={() => setSettingsModal(true)} variant='neutral' size='icon'>⚙️</Button>
       </div>
 
@@ -42,7 +41,7 @@ export default function Page() {
         </p>
       </footer>
 
-      <Settings isOpen={settingsModal} onClose={() => setSettingsModal(false)} />
+      { settingsModal && <Settings onClose={() => setSettingsModal(false)} /> }
     </div>
   )
 }

@@ -6,7 +6,6 @@ import { SettingsContext } from '@/contexts'
 import { Settings } from '@/entities'
 
 type SettingsProps = {
-  isOpen: boolean
   onClose: () => void
 }
 
@@ -40,7 +39,7 @@ export function Settings(props: SettingsProps) {
   return (
     <Modal
       title='Configurações'
-      isOpen={props.isOpen}
+      isOpen={true}
       onClose={props.onClose}
       actions={
         <Button

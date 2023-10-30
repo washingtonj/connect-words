@@ -1,16 +1,19 @@
 "use client"
 
-import { Dispatch, PropsWithChildren, createContext, useCallback, useEffect, useMemo, useReducer } from 'react'
+import { Dispatch, PropsWithChildren, createContext, useEffect, useReducer } from 'react'
 import { Settings } from '@/entities'
 
 const initialState: Settings = {
-  nickname: localStorage.getItem('playerName') as Settings['nickname'] || undefined,
-  theme: localStorage.getItem('theme') as Settings['theme'] || 'light',
-  difficulty: localStorage.getItem('difficulty') as Settings['difficulty'] || 'very_hard',
+  nickname: undefined,
+  theme: 'light',
+  difficulty: 'very_hard',
   language: 'pt_BR',
 }
 
-export type SettingsActions = {
+export type SettingsActions =  {
+  type: '_init_state', 
+  payload: Settings 
+} | {
   type: 'SET_THEME'
   payload: Settings['theme']
 } | {
@@ -26,9 +29,10 @@ export type SettingsActions = {
 
 export function SettingsReducer(state: Settings, action: SettingsActions) {
   switch (action.type) {
-    case 'SET_THEME':
-      localStorage.setItem('theme', action.payload)
+    case '_init_state':
+      return { ...state, ...action.payload}
 
+    case 'SET_THEME':
       if (action.payload === 'dark') {
         document.documentElement.classList.add('dark')
       }
@@ -42,11 +46,9 @@ export function SettingsReducer(state: Settings, action: SettingsActions) {
       return { ...state, language: action.payload }
 
     case 'SET_NICKNAME':
-      localStorage.setItem('playerName', action.payload)
       return { ...state, nickname: action.payload }
 
     case 'SET_DIFFICULTY':
-      localStorage.setItem('difficulty', action.payload)
       return { ...state, difficulty: action.payload }
 
     default:
@@ -54,22 +56,36 @@ export function SettingsReducer(state: Settings, action: SettingsActions) {
   }
 }
 
-export const SettingsContext = createContext<[state: Settings, dispatch: Dispatch<SettingsActions>]>([initialState, () => { }])
+export const SettingsContext = createContext<[state: Settings, dispatch: Dispatch<SettingsActions>]>([{} as Settings, () => { }])
 
 
 export function SettingsProvider(props: PropsWithChildren) {
+  const [state, dispatch] = useReducer(SettingsReducer, initialState);
+
   useEffect(() => {
-    if (initialState) {
-      if (initialState.theme === 'dark') {
+    const storagedSettings = localStorage.getItem('settings')
+
+    if (storagedSettings) {
+      const settings = JSON.parse(storagedSettings) as Settings
+
+      if (settings.theme === 'dark') {
         document.documentElement.classList.add('dark')
       }
       else {
         document.documentElement.classList.remove('dark')
       }
+
+      dispatch({ type: '_init_state', payload: settings })
     }
   }, [])
 
-  const [state, dispatch] = useReducer(SettingsReducer, initialState);
+  useEffect(() => {
+    if (state !== initialState) {
+      localStorage.setItem('settings', JSON.stringify(state))
+    }
+  }, [state])
+
+  
 
   return (
     <SettingsContext.Provider value={[state, dispatch]}>
