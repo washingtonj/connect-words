@@ -24,6 +24,10 @@ export async function GET(request: Request) {
     const quantityOfTopics = Object.keys(WORDS_DB[difficulty]).length
     const randomSelectedTopic = Math.floor(Math.random() * quantityOfTopics)
 
+    const topicHasFiveWords = Object.values(WORDS_DB[difficulty])[randomSelectedTopic].length === 5
+
+    if (!topicHasFiveWords) continue
+
     const topicName = Object.keys(WORDS_DB[difficulty])[randomSelectedTopic] as Topic
     const selectedTopic = WORDS_DB[difficulty][topicName] as string[]
 
