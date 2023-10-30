@@ -1,11 +1,10 @@
 "use client"
 
-import { PropsWithChildren, useRef } from "react";
-import { useClickAway } from "react-use";
+import { PropsWithChildren, useEffect, useRef } from "react";
+import { useClickAway, useMedia } from "react-use";
 import { Button } from ".";
 
 type ModalProps = PropsWithChildren<{
-  isOpen: boolean;
   title: string;
   actions?: React.ReactNode;
   onClose?: () => void;
@@ -18,9 +17,9 @@ export function Modal(props: ModalProps) {
     if (props.onClose) props.onClose()
   })
 
-  return props.isOpen ? (
-    <div className="w-screen h-screen fixed left-0 top-0 z-30 bg-black/70 transition-all">
-      <div className="h-full flex flex-col items-center justify-end lg:justify-center">
+  return (
+    <div className="w-screen h-screen fixed left-0 top-0 z-30 bg-black/70 transition-all" >
+      <div className="h-full flex flex-col items-center mx-2 lg:mx-0 justify-center">
 
         <div ref={ref} className="flex flex-col gap-6 w-full lg:w-4/12 lg:-mt-44 rounded-lg p-4 bg-white dark:bg-zinc-900">
           <div className="flex items-center justify-between border-b pb-4">
@@ -38,5 +37,5 @@ export function Modal(props: ModalProps) {
         </div>
       </div>
     </div>
-  ) : null
+  )
 }

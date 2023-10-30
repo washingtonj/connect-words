@@ -39,7 +39,6 @@ export function Settings(props: SettingsProps) {
   return (
     <Modal
       title='Configurações'
-      isOpen={true}
       onClose={props.onClose}
       actions={
         <Button
