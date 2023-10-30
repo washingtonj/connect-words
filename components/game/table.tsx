@@ -14,7 +14,13 @@ export function Table(props: TableProps) {
   const isMobile = useMedia('screen and (max-width: 640px)', false);
 
   const childrensSplitedByColumn = useMemo(() => {
-    const wordsPerColumn = props.isExample ? 3 : isMobile ? 10 : 5
+    const wordsPerColumn = (() => {
+      if (props.isExample && isMobile) return 5
+      if (props.isExample && !isMobile) return 3
+      
+      return 5
+    })()
+
     const wordsSplited = []
 
     for (let i = 0; i < props.children.length; i += wordsPerColumn) {
